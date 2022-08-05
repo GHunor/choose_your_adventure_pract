@@ -53,9 +53,7 @@ class whole:
             return True
         else:
             return False
-def print_special(num):
-    Special = ["You died", "You win"]
-    print(Special(num*-1-1))
+
 def q_check(input):
     if input == "q":
         print("Bye!")
@@ -85,13 +83,38 @@ def cycle(whole):
         print(whole.scen_list[sec].opt_list[opt].message)
         if whole.scen_list[sec].opt_list[opt].goal == "R":
             continue
-        if whole.scen_list[sec].opt_list[opt].goal in [-1,-2]:
-            print_special(whole.scen_list[sec].opt_list[opt].goal)
         sec = whole.scen_list[sec].opt_list[opt].goal
         print(whole.scen_list[sec].text)
     
     
   
+
+
+def main():
+    greetings("Choose your own adventure")
+    w = whole()
+    w.add_scen(scenerio("You have entered a dungeon and you are presented with a lever and a door"))
+    w.scen_list[0].add_opt_list([s_option("open the door", "The door is locked" ,"R"),
+                                    s_option("pull the lever", "The door has opened and you entered through the door." ,1)])
+    w.add_scen(scenerio("You are presented with a corridor going into the darkness with one door on each side"))
+    w.scen_list[1].add_opt_list([s_option("open the door on the left", "The door is locked" ,"R"),
+                                    s_option("open the door on the right", "You entered through the door." ,2),
+                                    s_option("go further", "You venture deeper into the darkness, but you failed to realise there is a stair in front of you. You trip and fall down the stairs and die" ,-1)])
+    w.add_scen(scenerio("You are presented with another door and a fountain"))
+    w.scen_list[2].add_opt_list([s_option("drink from the fountain", "The water tastes funny" ,"R"),
+                                    s_option("open the door", "You entered through the door and found a mountain of gold." ,-2)])
+    w.add_scen(scenerio("You have won"))
+    w.scen_list[3].add_opt(s_option("start over", "" ,0))
+    w.add_scen(scenerio("You have died"))
+    w.scen_list[4].add_opt(s_option("start over", "" ,0))                                
+    cycle(w)
+                                    
+    
+# Using the special variable 
+# __name__
+if __name__=="__main__":
+    main()
+
         
 '''
 def main():
@@ -171,34 +194,3 @@ def main():
         
         print(LOS[sec]["text"])
 '''
-
-def main():
-    greetings("Choose your own adventure")
-    w = whole()
-    print("whole size " + str(len(w.scen_list)))
-    w.add_scen(scenerio("You have entered a dungeon and you are presented with a lever and a door"))
-    print("whole size " + str(len(w.scen_list)))
-    
-    w.scen_list[0].add_opt_list([s_option("open the door", "The door is locked" ,"R"),
-                                    s_option("pull the lever", "The door has opened and you entered through the door." ,1)])
-    print("sec1 opt size " + str(len(w.scen_list[0].opt_list)))
-    w.add_scen(scenerio("You are presented with a corridor going into the darkness with one door on each side"))
-    print("whole size " + str(len(w.scen_list)))
-    w.scen_list[1].add_opt_list([s_option("open the door on the left", "The door is locked" ,"R"),
-                                    s_option("open the door on the right", "You entered through the door." ,2),
-                                    s_option("go further", "You venture deeper into the darkness, but you failed to realise there is a stair in front of you. You trip and fall down the stairs and die" ,-1)])
-    print("sec1 opt size " + str(len(w.scen_list[1].opt_list)))
-    w.add_scen(scenerio("You are presented with another door and a fountain"))
-    print("whole size " + str(len(w.scen_list)))
-    w.scen_list[2].add_opt_list([s_option("drink from the fountain", "The water tastes funny" ,"R"),
-                                    s_option("open the door", "You entered through the door and found a mountain of gold." ,-2)])
-                                    
-    print("sec1 opt size " + str(len(w.scen_list[2].opt_list)))
-    cycle(w)
-                                    
-    
-# Using the special variable 
-# __name__
-if __name__=="__main__":
-    main()
-
